@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This program is meant to ingest a JSON
 output file that is being generated
@@ -20,7 +21,7 @@ def main():
     This is the main function of the program
     """
     try:
-        import settings  # TODO: redo this to work like the cookie loaders so that if the check to see if the file exits fails to then make it otherwise import it
+        import settings  # TODO: redo this to work like my cookie loader and saver so that if the check to see if the file exits fails to then make it otherwise import it
     except ModuleNotFoundError:
         generate_settings()
         try:
@@ -41,7 +42,8 @@ def process_data(thefile: str):
     """
     Processes the data from the json output file from rtl_433
 
-    :param ``thefile``: The file refers to the json output file from rtl_433
+    :param ``thefile``: The file refers to the path of the json output file
+    from a running instance of rtl_433
     :return: ``None``
     """
     ids = set()
