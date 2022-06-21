@@ -11,23 +11,26 @@ from in the two minute window and how
 many tempeture readings where recorded
 within the two minute window
 """
+
 from json import loads
 from time import sleep
 from sys import exit
 from statistics import mean
+from os.path import dirname, realpath
+from os.path import join as os_join
 
 def main():
     """
     This is the main function of the program
     """
-    try:
-        import settings  # TODO: redo this to work like my cookie loader and saver so that if the check to see if the file exits fails to then make it otherwise import it
-    except ModuleNotFoundError:
-        generate_settings()
-        try:
-            import settings
-        except ModuleNotFoundError:
-            exit('Exiting due to not being able to find settings')
+    # try:
+    #     import settings  # TODO: redo this to work like my cookie loader and saver so that if the check to see if the file exits fails to then make it otherwise import it
+    # except ModuleNotFoundError:
+    #     generate_settings()
+    #     try:
+    #         import settings
+    #     except ModuleNotFoundError:
+    #         exit('Exiting due to not being able to find settings')
 
     f = "./rtl_433-data.json"  # DEBUG: in the end I want this read from the settings file
 
@@ -79,7 +82,6 @@ def process_data(thefile: str):
     return None
 
 
-
 def prompt(id_list: set, temperature_list: list, fr:bool = True) -> None:
     """
     Handles displaying the data
@@ -112,11 +114,28 @@ def prompt(id_list: set, temperature_list: list, fr:bool = True) -> None:
     return None
 
 
+def generate_settings() -> None:
+    """
+    This is supposed to gather values for some settings and save them as a
+    settings file to import and use in this script
+    
+    :return: ``None``
+    """
+    
+    settings_file_path = os_join(dirname(realpath(__file__)), 'settings.py')
+    config_file_path = os_join(dirname(realpath(__file__)), '.Temperature-Reader.conf')
+    config_file_contents = (
+        u'convert customary'\
+            u'output '
+    )
+    path_for_rtl_433 = None  # TODO:
+    sugested_command_to_run = f'{sugested_command_to_run} -c {config_file_path}'
 
+    # with open(settings_file_path, 'w') as sf:  # sf stands fo Settings File
+        # pass  # TODO: finish this part
 
-def generate_settings():
-    pass  # TODO: Finish making this so that it will ask the user the questions and then write
-          #       the answers to a file named settings.py
+    with open(config_file_path, 'w') as cf:  # cf stands for Config File
+        pass
 
 
 if __name__ == '__main__':
